@@ -9,7 +9,7 @@ app = Flask(__name__)
 def write_to_log():
     method = request.method
     header = request.headers
-    query = request.query_string.decode('utf-8')
+    query = request.query_string.encode('utf-8')
     app.logger.info('{} REQUEST: \n'
                     'HEADERS:\n {}'
                     'QUERY STRING:\n {}\n'.format(method,header,query))
@@ -22,7 +22,7 @@ def hello_world():
 
 if __name__ == '__main__':
     formatter = logging.Formatter("[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
-    handler = RotatingFileHandler('/Users/sp41mer/PycharmProjects/Logger/foo.log', maxBytes=10000000, backupCount=5)
+    handler = RotatingFileHandler('/Users/sp41mer/PycharmProjects/Logger/log.log', maxBytes=10000000, backupCount=5)
     handler.setLevel(logging.DEBUG)
     handler.setFormatter(formatter)
     app.logger.addHandler(handler)
